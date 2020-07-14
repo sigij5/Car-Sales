@@ -9,6 +9,6 @@ export const addFeature = newFeature => {
 
 
 export const REMOVE_FEATURE = 'REMOVE_FEATURE';
-export const removeFeature = props => {
-    return { type: REMOVE_FEATURE, payload: props.id };
+export const removeFeature = removeFeature => {
+    return { type: REMOVE_FEATURE, payload: removeFeature };
 };

@@ -2,7 +2,7 @@ import { ADD_FEATURE, REMOVE_FEATURE } from '../actions/featureActions'
 
 
 export const initialState = {
-    additionalPrice: '',
+    additionalPrice: 0,
     car: {
         price: 26395,
         name: '2019 Ford Mustang',
@@ -31,18 +31,24 @@ export const carReducer = (state = initialState, action) => {
             const filteredArray = state.additionalFeatures.filter(item => item.id !== action.payload.id)
             return {
                 ...state,
-                additionalPrice: newFeature.price,
+                additionalPrice: state.additionalPrice + newFeature.price,
                 additionalFeatures: filteredArray,
                 car: {
                     ...state.car,
                     features: [...state.car.features, newFeature],
                 }
             };
-        // case 'REMOVE_FEATURE':
-        //     return {
-        //         ...state,
-        //         features: [...state.features.filter()]
-        //     }
+        case 'REMOVE_FEATURE':
+            const filteredFeatures = state.car.features.filter(item => item.id !== action.payload.id)
+            const removePrice = action.payload.price
+            return {
+                ...state,
+                additionalPrice: state.additionalPrice - removePrice,
+                car: {
+                    ...state.car,
+                    features: filteredFeatures
+                }
+            };
             default:
                 return state;
     }
